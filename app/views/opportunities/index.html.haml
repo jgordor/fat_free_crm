@@ -1,8 +1,9 @@
 = styles_for :opportunity
+- options_text = acts_as_criteria_is_filter_active(@current_query) ? "#{t(:options)} #{t(:filter_active)}" : t(:options)
 
 .title_tools
   = link_to_inline(:create_opportunity, new_opportunity_path, :text => t(:create_opportunity)) << " | "
-  = link_to_inline(:options, options_opportunities_path, :text => t(:options))
+  = link_to_inline(:options, options_opportunities_path, :text => options_text)
 
 .title
   %span#create_opportunity_title #{t :opportunities}

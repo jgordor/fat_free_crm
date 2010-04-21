@@ -17,7 +17,7 @@
 
 class ContactsController < ApplicationController
   before_filter :require_user
-  before_filter :set_current_tab, :only => [ :index, :show ]
+  before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :auto_complete, :only => :auto_complete
   after_filter  :update_recently_viewed, :only => :show
 
@@ -163,17 +163,6 @@ class ContactsController < ApplicationController
     respond_to_not_found(:html, :js, :xml)
   end
 
-  # GET /contacts/search/query                                             AJAX
-  #----------------------------------------------------------------------------
-  def search
-    @contacts = get_contacts(:query => params[:query], :page => 1)
-
-    respond_to do |format|
-      format.js   { render :action => :index }
-      format.xml  { render :xml => @contacts.to_xml }
-    end
-  end
-
   # POST /contacts/auto_complete/query                                     AJAX
   #----------------------------------------------------------------------------
   # Handled by before_filter :auto_complete, :only => :auto_complete
@@ -186,6 +175,7 @@ class ContactsController < ApplicationController
       @outline  = @current_user.pref[:contacts_outline]  || Contact.outline
       @sort_by  = @current_user.pref[:contacts_sort_by]  || Contact.sort_by
       @naming   = @current_user.pref[:contacts_naming]   || Contact.first_name_position
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
     end
   end
 

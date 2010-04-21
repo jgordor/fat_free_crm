@@ -71,7 +71,11 @@ class User < ActiveRecord::Base
   named_scope :by_name, :order => "first_name, last_name, email"
   default_scope :order => "id DESC" # Show newest users first.
 
-  simple_column_search :username, :first_name, :last_name, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
+  acts_as_criteria :i18n                   => lambda { |text| I18n.t(text) },
+                   :mantain_current_query  => lambda { |query, controller_name, session| session["#{controller_name}_current_query".to_sym] = query },
+                   :restrict => { :method  => "my", :options => lambda { |current_user| { :user => current_user, :order => current_user.pref[:accounts_sort_by] || Account.sort_by } } },
+                   :paginate => { :method  => "paginate", :options => lambda { |current_user| { :page => 1, :per_page => current_user.pref[:accounts_per_page]} } },
+                   :simple   => { :columns => [:username, :first_name, :last_name], :match => :contains, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip } }
 
   acts_as_paranoid
   acts_as_authentic do |c|

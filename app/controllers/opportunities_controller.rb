@@ -17,9 +17,9 @@
 
 class OpportunitiesController < ApplicationController
   before_filter :require_user
-  before_filter :set_current_tab, :only => [ :index, :show ]
+  before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :load_settings
-  before_filter :get_data_for_sidebar, :only => :index
+  before_filter :get_data_for_sidebar, :only => [ :index, :search ]
   before_filter :auto_complete, :only => :auto_complete
   after_filter  :update_recently_viewed, :only => :show
 
@@ -175,17 +175,6 @@ class OpportunitiesController < ApplicationController
     respond_to_not_found(:html, :js, :xml)
   end
 
-  # GET /campaigns/search/query                                           AJAX
-  #----------------------------------------------------------------------------
-  def search
-    @opportunities = get_opportunities(:query => params[:query], :page => 1)
-
-    respond_to do |format|
-      format.js   { render :action => :index }
-      format.xml  { render :xml => @opportunities.to_xml }
-    end
-  end
-
   # POST /opportunities/auto_complete/query                                AJAX
   #----------------------------------------------------------------------------
   # Handled by before_filter :auto_complete, :only => :auto_complete
@@ -197,6 +186,7 @@ class OpportunitiesController < ApplicationController
       @per_page = @current_user.pref[:opportunities_per_page] || Opportunity.per_page
       @outline  = @current_user.pref[:opportunities_outline]  || Opportunity.outline
       @sort_by  = @current_user.pref[:opportunities_sort_by]  || Opportunity.sort_by
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
     end
   end
 

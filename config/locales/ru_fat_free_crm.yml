@@ -572,6 +572,33 @@ ru:
   users: Пользователи
   users_small: пользователи
 
+  # Filters
+  #----------------------------------------------------------------------------
+  filter_create: Создать фильтр
+  filter_clear: Ясно
+  filter_save: сохранить фильтр
+  add_criteria: Добавить критериев
+  filter: Фильтр
+  created_by: Создано
+  created_at: Создано в
+  name: Имя
+  contains: содержит
+  doesnt_contains: не содержит
+  begins_with: начинается с
+  ends_with: заканчивается
+  is: является
+  is_not: не является
+  updated_at: Обновлено в
+  description: Описание
+  save: Экономить
+  starts_on: Начинается на
+  ends_on: И заканчивается на
+  leads_count: Количество потенциальных клиентов
+  filter_active: "(Активные фильтры)"
+  closes_on: Дата закрытия
+  msg_successful_saved_filter: Успешно экономить фильтр
+  msg_failed_save_filter: Фильтра не может быть сохранен
+  
   # Pluralizations.
   #----------------------------------------------------------------------------
   pluralize:

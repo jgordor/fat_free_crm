@@ -2,6 +2,8 @@
   = link_to_close options_campaigns_path
   = hidden_field_tag "campaign[user_id]", @current_user.id
 
+  = render :partial => "common/filter"
+
   - current_sort_by = t("option_" + Campaign.sort_by_map.invert[@sort_by])
   - current_outline = t("option_#{@outline}")
   - current_naming  = t("option_#{@naming}")

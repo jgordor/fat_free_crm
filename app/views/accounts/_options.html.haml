@@ -6,6 +6,8 @@
   - current_outline = t("option_#{@outline}")
   - current_naming  = t("option_#{@naming}")
 
+  = render :partial => "common/filter"
+
   -# sort_by: Sort {{models}} by {{field}}.
   = t(:sort_by, :models => t(:accounts_small), :field => link_to(current_sort_by, "#", :id => :sort_by))
 

@@ -571,6 +571,33 @@ pl:
   users: Użytkownicy
   users_small: użytkowników
 
+  # Filters
+  #----------------------------------------------------------------------------
+  filter_create: Utwórz filtr
+  filter_clear: Jasny
+  filter_save: Zapisz filtr
+  add_criteria: Dodaj kryteria
+  filter: Filtr
+  created_by: Wykonawca
+  created_at: Created At
+  name: Nazwa
+  contains: contains
+  doesnt_contains: nie zawiera
+  begins_with: zaczyna się
+  ends_with: kończy się
+  is: jest
+  is_not: nie jest
+  updated_at: Aktualizacja w
+  description: Opis
+  save: Zaoszczędzić
+  starts_on: Rozpoczyna się
+  ends_on: Kończy się na
+  leads_count: Liczba prowadzi
+  filter_active: "(Filtr aktywny)"
+  closes_on: Data Zamknij
+  msg_successful_saved_filter: Udana oszczędności filtr
+  msg_failed_save_filter: Filtr nie może być zapisany
+  
   # Pluralizations.
   #----------------------------------------------------------------------------
   pluralize:

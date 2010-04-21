@@ -17,8 +17,8 @@
 
 class LeadsController < ApplicationController
   before_filter :require_user
-  before_filter :get_data_for_sidebar, :only => :index
-  before_filter :set_current_tab, :only => [ :index, :show ]
+  before_filter :get_data_for_sidebar, :only => [ :index, :search ]
+  before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :auto_complete, :only => :auto_complete
   after_filter  :update_recently_viewed, :only => :show
 
@@ -214,17 +214,6 @@ class LeadsController < ApplicationController
     respond_to_not_found(:html, :js, :xml)
   end
 
-  # GET /leads/search/query                                                AJAX
-  #----------------------------------------------------------------------------
-  def search
-    @leads = get_leads(:query => params[:query], :page => 1)
-
-    respond_to do |format|
-      format.js   { render :action => :index }
-      format.xml  { render :xml => @leads.to_xml }
-    end
-  end
-
   # POST /leads/auto_complete/query                                        AJAX
   #----------------------------------------------------------------------------
   # Handled by before_filter :auto_complete, :only => :auto_complete
@@ -237,6 +226,7 @@ class LeadsController < ApplicationController
       @outline  = @current_user.pref[:leads_outline]  || Lead.outline
       @sort_by  = @current_user.pref[:leads_sort_by]  || Lead.sort_by
       @naming   = @current_user.pref[:leads_naming]   || Lead.first_name_position
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
     end
   end
 

@@ -1,0 +1,2 @@
+page["query"].disabled = false
+page.hide "criteria_filter"

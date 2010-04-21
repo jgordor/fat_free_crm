@@ -74,7 +74,7 @@
 #     - :opportunity
 #     - :task
 #
-:background_info: []
+:background_info: [:account, :campaign, :contact, :lead, :opportunity, :task]
 
 # Address format.
 #------------------------------------------------------------------------------
@@ -82,7 +82,7 @@
 #   true  -- use separate street1, street2, city, state, zipcode, and country field.
 #   false -- use single text area field to enter the entire address. This is the default.
 #
-:compound_address: false
+:compound_address: true
 
 # Dropdown calendar format.
 #------------------------------------------------------------------------------
@@ -92,6 +92,14 @@
 #   false -- allow selecting date only. This is the default.
 #
 task_calendar_with_time: false
+
+# Advanced filters.
+#------------------------------------------------------------------------------
+# The following setting enables the advanced filters.
+#   true  -- enables the feature. This is the default.
+#   false -- disables the feature.
+#
+advanced_filters: true
 
 # Main and Admin Tabs.
 #------------------------------------------------------------------------------

@@ -563,7 +563,34 @@ fr:
   user_suspended_on: suspendu le {{value}}
   users: Utilisateurs
   users_small: utilisateurs
-  
+
+  # Filters
+  #----------------------------------------------------------------------------
+  filter_create: Créer un filtre
+  filter_clear: claire
+  filter_save: mettre le filtre
+  add_criteria: Ajouter des critères
+  filter: Filtre
+  created_by: Créé par
+  created_at: Créée à
+  name: Name
+  contains: contient
+  doesnt_contains: ne contient pas
+  begins_with: commence par
+  ends_with: se termine par
+  is: est
+  is_not: n'est pas
+  updated_at: Mise à jour à
+  description: Description
+  save: Sauver
+  starts_on: Début le
+  ends_on: Se termine le
+  leads_count: Nombre de prospects
+  filter_active: "(filtre actif)"
+  closes_on: Date de fermeture
+  succefully_saved_filter: Succefully sauver le filtre
+  failed_save_filter: Le filtre ne peut être sauvé
+
   # Pluralizations.
   #----------------------------------------------------------------------------
   pluralize:

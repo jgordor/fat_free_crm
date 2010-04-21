@@ -568,6 +568,33 @@ en-US:
   users: Users
   users_small: users
 
+  # Filters
+  #----------------------------------------------------------------------------
+  filter_create: Create filter
+  filter_clear: Clear
+  filter_save: save filter
+  add_criteria: Add criteria
+  filter: Filter
+  created_by: Created by
+  created_at: Created At
+  name: Name
+  contains: contains
+  doesnt_contains: doesn't contains
+  begins_with: begins with
+  ends_with: ends with
+  is: is
+  is_not: is not
+  updated_at: Updated at
+  description: Description
+  save: Save
+  starts_on: Starts on
+  ends_on: Ends on
+  leads_count: Number of leads
+  filter_active: "(filter active)"
+  closes_on: Close date
+  msg_successful_saved_filter: Succesfull saving the filter
+  msg_failed_save_filter: The filter can't be saved
+
   # Pluralizations.
   #----------------------------------------------------------------------------
   pluralize:

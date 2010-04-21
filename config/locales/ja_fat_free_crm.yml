@@ -568,6 +568,33 @@ ja:
   users: ユーザ
   users_small: ユーザ
 
+  # Filters
+  #----------------------------------------------------------------------------
+  filter_create: 作成フィルタ
+  filter_clear: 明確な
+  filter_save: フィルタを保存する
+  add_criteria: 条件を追加
+  filter: フィルタ
+  created_by: かれ
+  created_at: で作成
+  name: 名
+  contains: 含まれています
+  doesnt_contains: 含まれていない
+  begins_with: で始まる
+  ends_with: 両端で
+  is: さ
+  is_not: されていません
+  updated_at: で更新
+  description: 説明
+  save: 保存
+  starts_on: 開始に
+  ends_on: 端に
+  leads_count: 数のリード
+  filter_active: "(フィルタアクティブ)"
+  closes_on: クローズ日
+  msg_successful_saved_filter: のフィルタを保存する
+  msg_failed_save_filter: フィルタは保存できません
+  
   # Pluralizations.
   #----------------------------------------------------------------------------
   pluralize:

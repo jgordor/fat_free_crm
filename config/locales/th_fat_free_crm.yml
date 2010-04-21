@@ -572,6 +572,33 @@ th:
   users: ผู้ใช้
   users_small: ผู้ใช้ # TODO
 
+  # Filters
+  #----------------------------------------------------------------------------
+  filter_create: สร้างตัวกรอง
+  filter_clear: ชัดเจน
+  filter_save: บันทึกตัวกรอง
+  add_criteria: เพิ่มเกณฑ์
+  filter: กรอง
+  created_by: สร้างโดย
+  created_at: สร้างเมื่อ
+  name: ชื่อ
+  contains: ประกอบด้วย
+  doesnt_contains: ไม่ได้มี
+  begins_with: เริ่มต้นด้วย
+  ends_with: ลงท้ายด้วย
+  is: คือ
+  is_not: ไม่ใช่
+  updated_at: การปรับปรุงที่
+  description: ลักษณะ
+  save: ประหยัด
+  starts_on: เริ่มต้นที่
+  ends_on: สิ้นสุดที่
+  leads_count: จำนวนผู้นำ
+  filter_active: "(กรองงาน)"
+  closes_on: วันที่ปิด
+  msg_successful_saved_filter: ประหยัดกรอง
+  msg_failed_save_filter: กรองไม่สามารถบันทึก
+  
   # Pluralizations.
   #----------------------------------------------------------------------------
   pluralize:

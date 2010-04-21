@@ -17,7 +17,7 @@
 
 class AccountsController < ApplicationController
   before_filter :require_user
-  before_filter :set_current_tab, :only => [ :index, :show ]
+  before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :auto_complete, :only => :auto_complete
   after_filter  :update_recently_viewed, :only => :show
 
@@ -141,17 +141,6 @@ class AccountsController < ApplicationController
     respond_to_not_found(:html, :js, :xml)
   end
 
-  # GET /accounts/search/query                                             AJAX
-  #----------------------------------------------------------------------------
-  def search
-    @accounts = get_accounts(:query => params[:query], :page => 1)
-
-    respond_to do |format|
-      format.js   { render :action => :index }
-      format.xml  { render :xml => @accounts.to_xml }
-    end
-  end
-
   # POST /accounts/auto_complete/query                                     AJAX
   #----------------------------------------------------------------------------
   # Handled by before_filter :auto_complete, :only => :auto_complete
@@ -163,6 +152,7 @@ class AccountsController < ApplicationController
       @per_page = @current_user.pref[:accounts_per_page] || Account.per_page
       @outline  = @current_user.pref[:accounts_outline]  || Account.outline
       @sort_by  = @current_user.pref[:accounts_sort_by]  || Account.sort_by
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
     end
   end
 

@@ -1,8 +1,9 @@
 = styles_for :lead
+- options_text = acts_as_criteria_is_filter_active(@current_query) ? "#{t(:options)} #{t(:filter_active)}" : t(:options)
 
 .title_tools
   = link_to_inline(:create_lead, new_lead_path, :text => t(:create_lead)) << " | "
-  = link_to_inline(:options, options_leads_path, :text => t(:options))
+  = link_to_inline(:options, options_leads_path, :text => options_text)
 
 .title
   %span#create_lead_title #{t :leads}

@@ -53,7 +53,33 @@ class Account < ActiveRecord::Base
   named_scope :created_by, lambda { |user| { :conditions => ["user_id = ? ", user.id ] } }
   named_scope :assigned_to, lambda { |user| { :conditions => ["assigned_to = ? ", user.id ] } }
 
-  simple_column_search :name, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
+  # Prepare columns for filters based on settings
+  filter_columns = { :name => { },
+                     :user_id => { :text => "created_by", :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
+                     :assigned_to => { :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
+                     :created_at => {},
+                     :updated_at => {}
+                   }
+  # Add background_info if enabled
+  filter_columns.merge!(:background_info => {}) if Setting.background_info && Setting.background_info.include?(:account)
+  # Include splitted addresses if enabled
+  if Setting.compound_address
+    filter_address = { :"addresses.country" => { :text => "country", :relation_name => :billing_address, :source => lambda { |options| Country.all } },
+                       :"addresses.city" => { :text => "city", :relation_name => :billing_address },
+                       :"addresses.zipcode" => { :text => "zipcode", :relation_name => :billing_address },
+                       :"addresses.state" => { :text => "state", :relation_name => :billing_address }
+                     }
+  else
+    filter_address = { :"addresses.full_address" => { :text => "full_address", :relation_name => :billing_address } }
+  end
+  filter_columns.merge!(filter_address)
+  acts_as_criteria :i18n                   => lambda { |text| I18n.t(text) },
+                   :mantain_current_query  => lambda { |query, controller_name, session| session["#{controller_name}_current_query".to_sym] = query },
+                   :restrict => { :method  => "my", :options => lambda { |current_user| { :user => current_user, :order => current_user.pref[:accounts_sort_by] || Account.sort_by } } },
+                   :paginate => { :method  => "paginate", :options => lambda { |current_user| { :page => 1, :per_page => current_user.pref[:accounts_per_page]} } },
+                   :simple   => { :columns => [:name], :match => :contains, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip } },
+                   :filter   => { :columns => filter_columns }
+
   uses_user_permissions
   acts_as_commentable
   acts_as_paranoid

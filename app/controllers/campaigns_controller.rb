@@ -17,8 +17,8 @@
 
 class CampaignsController < ApplicationController
   before_filter :require_user
-  before_filter :get_data_for_sidebar, :only => :index
-  before_filter :set_current_tab, :only => [ :index, :show ]
+  before_filter :get_data_for_sidebar, :only => [ :index, :search ]
+  before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :auto_complete, :only => :auto_complete
   after_filter  :update_recently_viewed, :only => :show
 
@@ -142,17 +142,6 @@ class CampaignsController < ApplicationController
     respond_to_not_found(:html, :js, :xml)
   end
 
-  # GET /campaigns/search/query                                           AJAX
-  #----------------------------------------------------------------------------
-  def search
-    @campaigns = get_campaigns(:query => params[:query], :page => 1)
-
-    respond_to do |format|
-      format.js   { render :action => :index }
-      format.xml  { render :xml => @campaigns.to_xml }
-    end
-  end
-
   # POST /campaigns/auto_complete/query                                    AJAX
   #----------------------------------------------------------------------------
   # Handled by before_filter :auto_complete, :only => :auto_complete
@@ -164,6 +153,7 @@ class CampaignsController < ApplicationController
       @per_page = @current_user.pref[:campaigns_per_page] || Campaign.per_page
       @outline  = @current_user.pref[:campaigns_outline]  || Campaign.outline
       @sort_by  = @current_user.pref[:campaigns_sort_by]  || Campaign.sort_by
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
     end
   end
 

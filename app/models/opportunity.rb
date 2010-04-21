@@ -53,7 +53,28 @@ class Opportunity < ActiveRecord::Base
   named_scope :created_by, lambda { |user| { :conditions => ["user_id = ?", user.id ] } }
   named_scope :assigned_to, lambda { |user| { :conditions => [ "assigned_to = ?" ,user.id ] } }
 
-  simple_column_search :name, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
+  # Prepare columns for filters based on settings
+  filter_columns = { :name => { },
+                     :user_id => { :text => "created_by", :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
+                     :assigned_to => { :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
+                     :created_at => {},
+                     :updated_at => {},
+                     :amount => {},
+                     :discount => {},
+                     :stage => { :source => lambda { |options| Setting.unroll(:opportunity_stage) } },
+                     :closes_on => {},
+                     :probability => {}
+                   }
+  # Add background_info if enabled
+  filter_columns.merge!(:background_info => {}) if Setting.background_info && Setting.background_info.include?(:opportunity)
+
+  acts_as_criteria :i18n                   => lambda { |text| I18n.t(text) },
+                   :mantain_current_query  => lambda { |query, controller_name, session| session["#{controller_name}_current_query".to_sym] = query },
+                   :restrict => { :method  => "my", :options => lambda { |current_user| { :user => current_user, :order => current_user.pref[:opportunities_sort_by] || Opportunity.sort_by } } },
+                   :paginate => { :method  => "paginate", :options => lambda { |current_user| { :page => 1, :per_page => current_user.pref[:opportunities_per_page]} } },
+                   :simple   => { :columns => [:name], :match => :contains, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip } },
+                   :filter   => { :columns => filter_columns }
+
   uses_user_permissions
   acts_as_commentable
   acts_as_paranoid
