@@ -91,7 +91,7 @@ class Lead < ActiveRecord::Base
                    :mantain_current_query  => lambda { |query, controller_name, session| session["#{controller_name}_current_query".to_sym] = query },
                    :restrict => { :method  => "my", :options => lambda { |current_user| { :user => current_user, :order => current_user.pref[:leads_sort_by] || Lead.sort_by } } },
                    :paginate => { :method  => "paginate", :options => lambda { |current_user| { :page => 1, :per_page => current_user.pref[:leads_per_page]} } },
-                   :simple   => { :columns => [:first_name, :last_name], :match => :contains, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip } },
+                   :simple   => { :columns => [:first_name, :last_name, :company], :match => :contains, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip } },
                    :filter   => { :columns => filter_columns }
                  
   uses_user_permissions

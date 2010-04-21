@@ -74,7 +74,7 @@
 #     - :opportunity
 #     - :task
 #
-:background_info: [:account, :campaign, :contact, :lead, :opportunity, :task]
+:background_info: []
 
 # Address format.
 #------------------------------------------------------------------------------
@@ -82,7 +82,7 @@
 #   true  -- use separate street1, street2, city, state, zipcode, and country field.
 #   false -- use single text area field to enter the entire address. This is the default.
 #
-:compound_address: true
+:compound_address: false
 
 # Dropdown calendar format.
 #------------------------------------------------------------------------------
