@@ -70,6 +70,7 @@ class Contact < ActiveRecord::Base
                      :user_id => { :text => "created_by", :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
                      :assigned_to => { :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
                      :created_at => {},
+                     :email => {},
                      :updated_at => {}
                    }
   # Add background_info if enabled

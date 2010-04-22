@@ -71,6 +71,7 @@ class Lead < ActiveRecord::Base
                      :assigned_to => { :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
                      :created_at => {},
                      :updated_at => {},
+                     :email => {},
                      :status => { :source => lambda { |options| Setting.unroll(:lead_status) } },
                      :source => { :source => lambda { |options| Setting.unroll(:lead_source) } }
                    }

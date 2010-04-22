@@ -58,7 +58,8 @@ class Account < ActiveRecord::Base
                      :user_id => { :text => "created_by", :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
                      :assigned_to => { :source => lambda { |options| User.all.map { |user| [user.full_name, user.id] } } },
                      :created_at => {},
-                     :updated_at => {}
+                     :updated_at => {},
+                     :email => {}
                    }
   # Add background_info if enabled
   filter_columns.merge!(:background_info => {}) if Setting.background_info && Setting.background_info.include?(:account)
