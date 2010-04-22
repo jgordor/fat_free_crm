@@ -9,7 +9,11 @@
 .title
   %span#create_campaign_title #{t :campaigns}
   = image_tag("loading.gif", :size => "16x16", :id => "loading", :style => "display: none;")
-.remote#options{ hidden }
+- if Setting.advanced_filters && acts_as_criteria_is_filter_active(@current_query)
+  .remote#options
+    = render :partial => "options"
+- else
+  .remote#options{ hidden }
 .remote#create_campaign{ hidden }
 
 .list#campaigns

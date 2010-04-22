@@ -20,6 +20,7 @@ class CampaignsController < ApplicationController
   before_filter :get_data_for_sidebar, :only => [ :index, :search ]
   before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :auto_complete, :only => :auto_complete
+  before_filter :get_data_for_options, :only => [ :index, :options, :search ]
   after_filter  :update_recently_viewed, :only => :show
 
   # GET /campaigns
@@ -149,12 +150,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/options                                                 AJAX
   #----------------------------------------------------------------------------
   def options
-    unless params[:cancel].true?
-      @per_page = @current_user.pref[:campaigns_per_page] || Campaign.per_page
-      @outline  = @current_user.pref[:campaigns_outline]  || Campaign.outline
-      @sort_by  = @current_user.pref[:campaigns_sort_by]  || Campaign.sort_by
-      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
-    end
+
   end
 
   # POST /campaigns/redraw                                                 AJAX
@@ -228,6 +224,16 @@ class CampaignsController < ApplicationController
       @campaign_status_total[:other] -= @campaign_status_total[key]
     end
     @campaign_status_total[:other] += @campaign_status_total[:all]
+  end
+
+  #----------------------------------------------------------------------------
+  def get_data_for_options
+    unless params[:cancel].true?
+      @per_page = @current_user.pref[:campaigns_per_page] || Campaign.per_page
+      @outline  = @current_user.pref[:campaigns_outline]  || Campaign.outline
+      @sort_by  = @current_user.pref[:campaigns_sort_by]  || Campaign.sort_by
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
+    end
   end
 
 end

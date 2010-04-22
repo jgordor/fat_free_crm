@@ -21,6 +21,7 @@ class OpportunitiesController < ApplicationController
   before_filter :load_settings
   before_filter :get_data_for_sidebar, :only => [ :index, :search ]
   before_filter :auto_complete, :only => :auto_complete
+  before_filter :get_data_for_options, :only => [ :index, :options, :search ]
   after_filter  :update_recently_viewed, :only => :show
 
   # GET /opportunities
@@ -182,12 +183,7 @@ class OpportunitiesController < ApplicationController
   # GET /opportunities/options                                             AJAX
   #----------------------------------------------------------------------------
   def options
-    unless params[:cancel].true?
-      @per_page = @current_user.pref[:opportunities_per_page] || Opportunity.per_page
-      @outline  = @current_user.pref[:opportunities_outline]  || Opportunity.outline
-      @sort_by  = @current_user.pref[:opportunities_sort_by]  || Opportunity.sort_by
-      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
-    end
+
   end
 
   # POST /opportunities/redraw                                             AJAX
@@ -275,6 +271,16 @@ class OpportunitiesController < ApplicationController
   #----------------------------------------------------------------------------
   def load_settings
     @stage = Setting.unroll(:opportunity_stage)
+  end
+
+  #----------------------------------------------------------------------------
+  def get_data_for_options
+    unless params[:cancel].true?
+      @per_page = @current_user.pref[:opportunities_per_page] || Opportunity.per_page
+      @outline  = @current_user.pref[:opportunities_outline]  || Opportunity.outline
+      @sort_by  = @current_user.pref[:opportunities_sort_by]  || Opportunity.sort_by
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
+    end
   end
 
 end

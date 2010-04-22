@@ -19,6 +19,7 @@ class AccountsController < ApplicationController
   before_filter :require_user
   before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :auto_complete, :only => :auto_complete
+  before_filter :get_data_for_options, :only => [ :index, :options, :search ]
   after_filter  :update_recently_viewed, :only => :show
 
   # GET /accounts
@@ -148,12 +149,7 @@ class AccountsController < ApplicationController
   # GET /accounts/options                                                 AJAX
   #----------------------------------------------------------------------------
   def options
-    unless params[:cancel].true?
-      @per_page = @current_user.pref[:accounts_per_page] || Account.per_page
-      @outline  = @current_user.pref[:accounts_outline]  || Account.outline
-      @sort_by  = @current_user.pref[:accounts_sort_by]  || Account.sort_by
-      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
-    end
+
   end
 
   # POST /accounts/redraw                                                 AJAX
@@ -206,6 +202,16 @@ class AccountsController < ApplicationController
       self.current_page = 1 # Reset current page to 1 to make sure it stays valid.
       flash[:notice] = "#{t(:asset_deleted, @account.name)}"
       redirect_to(accounts_path)
+    end
+  end
+
+  #----------------------------------------------------------------------------
+  def get_data_for_options
+    unless params[:cancel].true?
+      @per_page = @current_user.pref[:accounts_per_page] || Account.per_page
+      @outline  = @current_user.pref[:accounts_outline]  || Account.outline
+      @sort_by  = @current_user.pref[:accounts_sort_by]  || Account.sort_by
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
     end
   end
 

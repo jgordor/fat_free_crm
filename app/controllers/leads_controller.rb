@@ -20,6 +20,7 @@ class LeadsController < ApplicationController
   before_filter :get_data_for_sidebar, :only => [ :index, :search ]
   before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :auto_complete, :only => :auto_complete
+  before_filter :get_data_for_options, :only => [ :index, :options, :search ]
   after_filter  :update_recently_viewed, :only => :show
 
   # GET /leads
@@ -221,13 +222,7 @@ class LeadsController < ApplicationController
   # GET /leads/options                                                     AJAX
   #----------------------------------------------------------------------------
   def options
-    unless params[:cancel].true?
-      @per_page = @current_user.pref[:leads_per_page] || Lead.per_page
-      @outline  = @current_user.pref[:leads_outline]  || Lead.outline
-      @sort_by  = @current_user.pref[:leads_sort_by]  || Lead.sort_by
-      @naming   = @current_user.pref[:leads_naming]   || Lead.first_name_position
-      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
-    end
+
   end
 
   # POST /leads/redraw                                                     AJAX
@@ -329,6 +324,17 @@ class LeadsController < ApplicationController
       get_data_for_sidebar
     else
       get_data_for_sidebar(:campaign)
+    end
+  end
+
+  #----------------------------------------------------------------------------
+  def get_data_for_options
+    unless params[:cancel].true?
+      @per_page = @current_user.pref[:leads_per_page] || Lead.per_page
+      @outline  = @current_user.pref[:leads_outline]  || Lead.outline
+      @sort_by  = @current_user.pref[:leads_sort_by]  || Lead.sort_by
+      @naming   = @current_user.pref[:leads_naming]   || Lead.first_name_position
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
     end
   end
 

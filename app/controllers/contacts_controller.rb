@@ -19,6 +19,7 @@ class ContactsController < ApplicationController
   before_filter :require_user
   before_filter :set_current_tab, :only => [ :index, :show, :search ]
   before_filter :auto_complete, :only => :auto_complete
+  before_filter :get_data_for_options, :only => [ :index, :options, :search ]
   after_filter  :update_recently_viewed, :only => :show
 
   # GET /contacts
@@ -170,13 +171,7 @@ class ContactsController < ApplicationController
   # GET /contacts/options                                                  AJAX
   #----------------------------------------------------------------------------
   def options
-    unless params[:cancel].true?
-      @per_page = @current_user.pref[:contacts_per_page] || Contact.per_page
-      @outline  = @current_user.pref[:contacts_outline]  || Contact.outline
-      @sort_by  = @current_user.pref[:contacts_sort_by]  || Contact.sort_by
-      @naming   = @current_user.pref[:contacts_naming]   || Contact.first_name_position
-      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
-    end
+
   end
 
   # POST /contacts/redraw                                                  AJAX
@@ -248,4 +243,15 @@ class ContactsController < ApplicationController
     end
   end
 
+  #----------------------------------------------------------------------------
+  def get_data_for_options
+    unless params[:cancel].true?
+      @per_page = @current_user.pref[:contacts_per_page] || Contact.per_page
+      @outline  = @current_user.pref[:contacts_outline]  || Contact.outline
+      @sort_by  = @current_user.pref[:contacts_sort_by]  || Contact.sort_by
+      @naming   = @current_user.pref[:contacts_naming]   || Contact.first_name_position
+      @current_query = params[:query] || session["#{controller_name}_current_query".to_sym] || ""
+    end
+  end
+  
 end
