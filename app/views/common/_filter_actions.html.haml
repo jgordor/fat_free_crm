@@ -1,0 +1,9 @@
+- label = acts_as_criteria_is_filter_active(@current_query) ? t(:update) : t(:filter)
+#filter_active{ hidden_if(!acts_as_criteria_is_filter_active(@current_query)) }
+  = button_to_function label, "document.acts_as_criteria_filter_form.submit()"
+  - if acts_as_criteria_is_filter_active(@current_query)
+    = ", "
+    = link_to_remote(t(:filter_clear), {:url => { :action => :criteria, :id => "clear_filters" }})
+    = " #{t :or} "
+    = "<a id=\"save_filter_link\" href=\"#\" onclick=\"$('save_filter_form').show();$('save_filter_link').hide()\")>#{t(:filter_save)}</a>"
+    #save_filter_form{ hidden }= acts_as_criteria_save_user_filter_form(@current_user.id)

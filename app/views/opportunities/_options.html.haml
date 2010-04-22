@@ -13,6 +13,10 @@
 
   -# show_per_page: Show {{number}} {{models}} per page using {{format}} format. 
   = t(:show_per_page, :number => link_to(@per_page, "#", :id => :per_page), :models => t(:opportunities_small), :format => link_to(current_outline, "#", :id => :outline))
+
+  %p
+    = render :partial => "common/filter_actions"
+  %p
 %p
 
 %script

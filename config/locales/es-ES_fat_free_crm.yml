@@ -574,7 +574,7 @@ es-ES:
   # Filters
   #----------------------------------------------------------------------------
   filter_create: Crear filtro
-  filter_clear: Limpiar
+  filter_clear: desactivar filtro
   filter_save: guardar filtro
   add_criteria: Añadir criterio
   filter: Filtrar

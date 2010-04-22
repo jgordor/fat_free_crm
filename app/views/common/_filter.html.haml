@@ -1,15 +1,8 @@
 - model = controller.controller_name.singularize.camelize.constantize
 
 - if Setting.advanced_filters
-  = acts_as_criteria_form :filter, model, :hidden => true
-  - if acts_as_criteria_is_filter_active(@current_query)
-    #filter_active
-      = link_to_remote(t(:filter_clear), {:url => { :action => :criteria, :id => "clear_filters" }})
-      = " #{t :or} "
-      = "<a id=\"save_filter_link\" href=\"#\" onclick=\"$('save_filter_form').show();$('save_filter_link').hide()\")>#{t(:filter_save)}</a>"
-      #save_filter_form{ hidden }= acts_as_criteria_save_user_filter_form(@current_user.id)
-      %br
-  - else
+  = acts_as_criteria_form :filter, model, :hidden => true, :no_actions => true
+  - unless acts_as_criteria_is_filter_active(@current_query)
     #filter_inactive
       = link_to_remote(t(:filter_create), {:url => { :action => :criteria, :id => "activate_filters" }})
       = " #{t :or} "
