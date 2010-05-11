@@ -116,7 +116,7 @@ class ApplicationController < ActionController::Base
 
   #----------------------------------------------------------------------------
   def called_from_landing_page?(controller = controller_name)
-    request.referer =~ %r(/#{controller}/\w+)
+    request.referer =~ %r(/#{controller}/\w+) && !request.referer.include?("search")
   end
 
   #----------------------------------------------------------------------------

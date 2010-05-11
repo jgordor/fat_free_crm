@@ -597,6 +597,9 @@ es-ES:
   closes_on: Cerrado el
   msg_successful_saved_filter: El filtro se ha guardado correctamente
   msg_failed_save_filter: No se pudo guardar el filtro
+  save_as_new_filter: Guardar como nuevo filtro
+  or_ovewrite_existing: o sobreescribir existente
+  select_one: Seleccione uno
 
   # Pluralizations.
   #----------------------------------------------------------------------------

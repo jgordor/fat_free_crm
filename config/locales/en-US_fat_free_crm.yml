@@ -594,6 +594,10 @@ en-US:
   closes_on: Close date
   msg_successful_saved_filter: Succesfull saving the filter
   msg_failed_save_filter: The filter can't be saved
+  save_as_new_filter: Save as new filter
+  or_ovewrite_existing: or overwrite existing
+  select_one: Select one
+  
 
   # Pluralizations.
   #----------------------------------------------------------------------------
