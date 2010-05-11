@@ -61,7 +61,7 @@ class Opportunity < ActiveRecord::Base
                      :updated_at => {},
                      :amount => {},
                      :discount => {},
-                     :stage => { :source => lambda { |options| Setting.unroll(:opportunity_stage) } },
+                     :stage => { :source => lambda { |options| Setting.unroll(:opportunity_stage).map { |name, id| [name, id.to_s] } } },
                      :closes_on => {},
                      :probability => {}
                    }

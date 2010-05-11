@@ -72,8 +72,8 @@ class Lead < ActiveRecord::Base
                      :created_at => {},
                      :updated_at => {},
                      :email => {},
-                     :status => { :source => lambda { |options| Setting.unroll(:lead_status) } },
-                     :source => { :source => lambda { |options| Setting.unroll(:lead_source) } }
+                     :status => { :source => lambda { |options| Setting.unroll(:lead_status).map { |name, id| [name, id.to_s] } } },
+                     :source => { :source => lambda { |options| Setting.unroll(:lead_source).map { |name, id| [name, id.to_s] } } }
                    }
   # Add background_info if enabled
   filter_columns.merge!(:background_info => {}) if Setting.background_info && Setting.background_info.include?(:lead)

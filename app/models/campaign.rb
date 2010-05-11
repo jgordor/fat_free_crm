@@ -64,7 +64,7 @@ class Campaign < ActiveRecord::Base
                      :starts_on => {},
                      :ends_on => {},
                      :objectives => {},
-                     :status => { :source => lambda { |options| Setting.unroll(:campaign_status) } }
+                     :status => { :source => lambda { |options| Setting.unroll(:campaign_status).map { |name, id| [name, id.to_s] } } }
                    }
   # Add background_info if enabled
   filter_columns.merge!(:background_info => {}) if Setting.background_info && Setting.background_info.include?(:campaign)
