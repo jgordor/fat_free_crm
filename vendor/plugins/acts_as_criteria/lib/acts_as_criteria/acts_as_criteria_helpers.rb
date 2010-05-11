@@ -180,8 +180,8 @@ module ActsAsCriteria
       form << form_remote_tag(:url => { :action => :criteria, :id => "save_filters" })
       form << hidden_field_tag("user_id", current_user)
       form << "<strong>#{acts_as_criteria_get_translation(acts_as_criteria_get_current_model, "save_as_new_filter")}:</strong><br />"
-      form << "#{acts_as_criteria_get_translation(acts_as_criteria_get_current_model, "name")}: #{text_field_tag("filter_name", nil, :size => 15)}"
-      form << "#{acts_as_criteria_get_translation(acts_as_criteria_get_current_model, "description")}: #{text_field_tag("filter_description", nil, :size => 35)}"
+      form << "#{acts_as_criteria_get_translation(acts_as_criteria_get_current_model, "name")}: #{text_field_tag("filter_name", nil, :size => 15, :id => "acts_as_criteria_filter_name")}"
+      form << "#{acts_as_criteria_get_translation(acts_as_criteria_get_current_model, "description")}: #{text_field_tag("filter_description", nil, :size => 35, :id => "acts_as_criteria_filter_description")}"
       form << "<br />"
       form << "<strong>#{acts_as_criteria_get_translation(acts_as_criteria_get_current_model, "or_ovewrite_existing")}</strong>"
       form << select_tag("criteria_select_filter", options_for_select(options, 0))
