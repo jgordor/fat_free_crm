@@ -172,7 +172,7 @@ module ActsAsCriteria
 
     def acts_as_criteria_save_user_filter_form(current_user)
       filters = UserFilter.find(:all, :conditions => { :user_id => current_user, :asset => controller_name })
-      options = filters.map{ |filter| [filter.name, filter.id] }.insert(0, acts_as_criteria_get_translation(acts_as_criteria_get_current_model, "select_one"))
+      options = filters.map{ |filter| [filter.name, filter.id] }.insert(0, [acts_as_criteria_get_translation(acts_as_criteria_get_current_model, "select_one"), ""])
 
       form = []
 
