@@ -126,7 +126,7 @@ module ActsAsCriteria
       current_value = current_value.to_i if Float(current_value) rescue false
 
       options = source.call(options)
-      select_tag :"query[#{col}][value][]", options_for_select(options, current_value)
+      select_tag :"query[#{col}][value][]", options_for_select(options, current_value), { :style => "width: 250px;" }
     end
     
     def acts_as_criteria_set_visibility(type, current_query, options = {})
