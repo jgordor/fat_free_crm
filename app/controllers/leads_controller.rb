@@ -267,7 +267,7 @@ class LeadsController < ApplicationController
     }
     pages = {
       :page => current_page,
-      :per_page => @current_user.preference[:leads_per_page]
+      :per_page => options[:per_page] || @current_user.preference[:leads_per_page]
     }
 
     # Call :get_leads hook and return its output if any.

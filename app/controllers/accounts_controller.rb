@@ -174,7 +174,7 @@ class AccountsController < ApplicationController
     }
     pages = {
       :page => current_page,
-      :per_page => @current_user.pref[:accounts_per_page]
+      :per_page => options[:per_page] || @current_user.pref[:accounts_per_page]
     }
 
     # Call :get_accounts hook and return its output if any.

@@ -183,7 +183,7 @@ class CampaignsController < ApplicationController
     }
     pages = {
       :page => current_page,
-      :per_page => @current_user.pref[:campaigns_per_page]
+      :per_page => options[:per_page] || @current_user.pref[:campaigns_per_page]
     }
 
     # Call :get_campaigns hook and return its output if any.

@@ -216,7 +216,7 @@ class OpportunitiesController < ApplicationController
     }
     pages = {
       :page => current_page,
-      :per_page => @current_user.pref[:opportunities_per_page]
+      :per_page => options[:per_page] || @current_user.pref[:opportunities_per_page]
     }
 
     # Call :get_opportunities hook and return its output if any.
